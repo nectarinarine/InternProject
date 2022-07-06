@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
 
-function App() {
+const App = () => {
+  const [temp, setTemp] = useState(-455);
+  const [location, setLocation] = useState("here");
+
+  const fetchTemp = async e => {
+    const cityInput = e.target.value
+    const city = cityInput.replace(" ", "_")
+    const response = await fetch(`https://wttr.in/${city}?format=j1`)
+    const data = await response.json()
+    setTemp(data.current_condition[0].temp_F);
+    setLocation(data.nearest_area[0].areaName[0].value);
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+     <p style={{textAlign: "center"}}> It is {temp}°F in {location}.
+     <input  onChange={fetchTemp} label="Search Location" />
+     </p>
     </div>
-  );
+  )
 }
-
 export default App;
