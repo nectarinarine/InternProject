@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function LocationParse(inString){
+export default function locationParse(inString){
     let outVal = {"value":"","type":""};
     outVal.value = inString.replace(" ", "-");
     if (!isNaN(outVal["value"]) && outVal["value"].length == 5){
